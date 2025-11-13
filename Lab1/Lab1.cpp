@@ -1,7 +1,4 @@
-﻿// Lab1.cpp: определяет точку входа для приложения.
-//
-
-#include "Lab1.h"
+﻿#include "Lab1.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -100,7 +97,7 @@ bool load_game() {
 
 void show_statistics_per_round(){
 	cout << "\n\nМой повелитель, соизволь поведать тебе\n";
-	cout << "в году " << count_curr_year << " твоего правления:\n";
+	cout << "в году " << count_curr_year-1 << " твоего правления:\n";
 	
 	if (count_curr_year > 1) {
 		if (count_people_dead_from_hunger > 0) {
@@ -232,20 +229,20 @@ bool get_player_input_at_this_year()
 	count_people_alive = people_fed;
 	total_deaths_from_hunger += count_people_dead_from_hunger;
 	
-	// Проверка на проигрыш (более 45% умерло)
+	// Проверка на проигрыш
 	float death_rate = (float)count_people_dead_from_hunger / people_at_start;
 	if (death_rate > people_death_threshold) {
 		return false;
 	}
 	
-	// Новоприбывшие (сначала прибывают)
+	// Новоприбывшие
 	newcomers = get_newcomers(count_people_dead_from_hunger, wheat_per_acre, count_food);
 	count_people_alive += newcomers;
 	
-	// Чума (убивает половину уже увеличенного населения)
+	// Чума
 	if ((float)rand() / RAND_MAX < plague_probability) {
 		was_plague = true;
-		count_people_alive = count_people_alive / 2; // округляется вниз автоматически
+		count_people_alive = count_people_alive / 2;
 	}
 	
 	return true;
@@ -253,11 +250,7 @@ bool get_player_input_at_this_year()
 
 void show_final_statistics() 
 {
-	// P - среднегодовой процент умерших от голода (от начального населения 100)
-	float avg_deaths_per_year = (float)total_deaths_from_hunger / count_curr_year;
-	float P = avg_deaths_per_year; // в процентах от начального населения (100 человек)
-	
-	// L - акров земли на жителя
+	float P = (float)total_deaths_from_hunger / count_curr_year;
 	float L = (float)count_grounds / (count_people_alive > 0 ? count_people_alive : 1);
 	
 	cout << "\n\n========================================\n";
