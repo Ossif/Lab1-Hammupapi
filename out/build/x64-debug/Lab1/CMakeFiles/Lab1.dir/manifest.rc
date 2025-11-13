@@ -1,0 +1,2 @@
+#pragma code_page(65001)
+1 /* CREATEPROCESS_MANIFEST_RESOURCE_ID */ 24 /* RT_MANIFEST */ "D:/_Study/Algorithms/Lab1/Lab1/out/build/x64-debug/Lab1/CMakeFiles/Lab1.dir/embed.manifest"
